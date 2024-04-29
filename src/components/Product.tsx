@@ -8,18 +8,18 @@ import "./product.css";
 import useCart from "../hooks/use-cart";
 
 export interface Props {
-  quantity: number;
   desc: string;
   id: number;
   name: string;
+  quantity: number;
   thumbnail_url: string;
 }
 
 const Product: FC<PropsWithChildren<Props>> = ({
-  quantity: available,
   desc,
-  name,
   id,
+  name,
+  quantity: available,
   thumbnail_url,
 }) => {
   const [count, setCount] = useState<number>(0); // local state count
