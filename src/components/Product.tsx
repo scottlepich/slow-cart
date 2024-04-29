@@ -28,7 +28,15 @@ const Product: FC<PropsWithChildren<Props>> = ({
 }) => {
   const [count, setCount] = useState<number>(0); // local state count
 
+  const [isInit, setIsInit] = useState<boolean>(true);
+
   const [hasDisabledAdd, setHasDisabledAdd] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isInit) {
+      setIsInit(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (hasDisabledAdd && count < available) {
@@ -44,7 +52,9 @@ const Product: FC<PropsWithChildren<Props>> = ({
   );
 
   useEffect(() => {
-    debouncedUpdate();
+    if (!isInit) {
+      debouncedUpdate();
+    }
   }, [count]);
 
   const handleAdd = (count: number) => {
