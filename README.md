@@ -44,3 +44,25 @@ http://localhost:5175/
 
 API is here
 http://localhost:3000/
+
+## Rationale
+
+#### Why use react component state?
+- Does not block on cart updates
+- Allows for quick user feedback on updates
+
+#### Why use react context for cart?
+- Allows for updates to surface from the backend
+- Used by any component without passing props
+
+#### Why use web sockets?
+- Can subscribe to cart/inventory updates
+- Allow for atomic, terse updates
+- Server side source-of-truth unlocks features like persistent carts, abandoned cart emails, etc.
+
+#### Why use Toast messaging?
+- Constient user communication
+- Mitigates the reconciliation process server -> cart -> ui. 
+
+
+
