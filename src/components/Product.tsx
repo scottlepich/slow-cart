@@ -43,15 +43,15 @@ const Product: FC<PropsWithChildren<Props>> = ({
   }, [count]);
 
   useEffect(() => {
+    const message = getLastMessage();
+    console.log({ messages, message });
+  }, [messages]);
+
+  useEffect(() => {
     if (hasDisabledAdd && count < available) {
       setHasDisabledAdd(false);
     }
   }, [count, available, hasDisabledAdd]);
-
-  useEffect(() => {
-    const message = getLastMessage();
-    console.log({ messages });
-  }, [messages]);
 
   const handleAdd = (count: number) => {
     if (count <= available) {
