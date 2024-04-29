@@ -4,9 +4,14 @@ import products from "../../fixtures/mock-products.json";
 
 const port = 3000;
 
+const socketInitMessage = "Connected, successful";
+
 const server = serve({
   port,
   fetch(req) {
+    if (server.upgrade(req)) {
+      return undefined;
+    }
     const url = new URL(req.url);
     switch (url.pathname) {
       case "/api/products":
@@ -21,6 +26,22 @@ const server = serve({
       default:
         return new Response("Unfound", { status: 404 });
     }
+  },
+
+  websocket: {
+    open(ws) {
+      ws.send(socketInitMessage);
+      console.log("opened", { ws });
+    },
+
+    async message(ws, message) {
+      console.log({ message });
+      ws.send("received");
+    },
+
+    close() {
+      console.log("closed");
+    },
   },
 });
 
