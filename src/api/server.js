@@ -2,12 +2,12 @@ import { serve } from "bun";
 
 import products from "../../fixtures/mock-products.json";
 
-const port = 3000;
+const PORT = 3000;
 
 const socketInitMessage = "Connected, successful";
 
 const server = serve({
-  port,
+  PORT,
   fetch(req) {
     if (server.upgrade(req)) {
       return undefined;
