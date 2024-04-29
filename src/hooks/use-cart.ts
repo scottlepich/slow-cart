@@ -34,12 +34,9 @@ const useCart = () => {
     DEBOUNCE_WINDOW,
   );
 
-  const getCartLine = (id: number) => cartLines.get(id);
-
   return {
     cartLines,
     clearReconcile,
-    getCartLine,
     messages,
     reconcile,
     updateCart,

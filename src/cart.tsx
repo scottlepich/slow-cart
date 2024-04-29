@@ -50,6 +50,7 @@ export const CartContextProvider: FC<PropsWithChildren<never>> = ({
   });
 
   useEffect(() => {
+    // reconcile cart if we get a message that it changed on server
     if (lastMessage?.data) {
       const json = JSON.parse(lastMessage.data);
       setMessages((prev) => [...prev, json]);
@@ -75,11 +76,11 @@ export const CartContextProvider: FC<PropsWithChildren<never>> = ({
     <CartContext.Provider
       value={{
         cartLines,
-        setCartLines,
-        sendMessage,
+        clearReconcile,
         messages,
         reconcile,
-        clearReconcile,
+        sendMessage,
+        setCartLines,
       }}
     >
       {children}
