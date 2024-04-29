@@ -62,6 +62,7 @@ export const CartContextProvider: FC<PropsWithChildren<never>> = ({
             `Inventory changed. Your cart has been updated ${cartLine.name} ${json.quantity}`,
           );
         }
+        // TODO: didn't have time for this, but should update local product inventory from here
       }
     }
   }, [lastMessage]);
