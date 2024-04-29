@@ -38,7 +38,7 @@ const Product: FC<PropsWithChildren<Props>> = ({
 
   useEffect(() => {
     if (!isInit) {
-      debouncedUpdate();
+      updateCart(id, name, count);
     }
   }, [count]);
 
