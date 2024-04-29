@@ -19,3 +19,22 @@ Prototype of a cart UI that handles slow server-side inventory updates.
 - Use a Websocket for atomic cart communication
 - Use a toast component for user messaging
 
+## Startup
+
+### Install bun
+If you don't have this yet, it's fantastic for prototyping with a lot of built-in scaffloding.
+
+
+### bun install
+Get packages
+```
+$ bun install
+```
+
+### 
+Run bun server and react
+
+```
+$ bun dev
+$ bun backend
+```
