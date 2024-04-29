@@ -9,6 +9,10 @@ It only really works the first time through, because the server only returns the
 1. Try adding the first product to see the delay in the add to cart message
 1. Try adding several of the second product, it simulates an eventual consistency message and update the users cart.
 
+
+https://github.com/scottlepich/slow-cart/assets/39407/e5565901-5d63-4614-be30-a4c3858e25ae
+
+
 ## Features ##
 
 - Update cart UI is immediate for user (local state)
