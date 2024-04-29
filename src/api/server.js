@@ -36,7 +36,7 @@ const server = serve({
 
     async message(ws, message) {
       // console.log({ message });
-      const { id, quantity } = JSON.parse(message);
+      const { name, id, quantity } = JSON.parse(message);
       ws.send(JSON.stringify({ action: "ACK" }));
 
       // simulate slow responses
@@ -47,7 +47,7 @@ const server = serve({
         }, 2e3);
       } else {
         setTimeout(() => {
-          ws.send(JSON.stringify({ action: "added", id, quantity }));
+          ws.send(JSON.stringify({ action: "added", name, id, quantity }));
         }, 2e3);
       }
     },

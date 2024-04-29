@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
+import { FC, PropsWithChildren, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import Quantity from "./Quantity";

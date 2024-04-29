@@ -6,6 +6,8 @@ import {
   useEffect,
 } from "react";
 
+import toast from "react-hot-toast";
+
 import useWebSocket, { SendMessage } from "react-use-websocket";
 
 interface CartLine {
@@ -54,16 +56,29 @@ export const CartContextProvider: FC<PropsWithChildren<never>> = ({
     if (lastMessage?.data) {
       const json = JSON.parse(lastMessage.data);
       setMessages((prev) => [...prev, json]);
-      if (json.action === "reconcile") {
-        const cartLine = cartLines.get(json.id);
-        if (cartLine) {
-          cartLine.quantity = json.quantity;
-          cartLines.set(json.id, cartLine);
-          setReconcile(
-            `Inventory changed. Your cart has been updated ${cartLine.name} ${json.quantity}`,
-          );
-        }
-        // TODO: didn't have time for this, but should update local product inventory from here
+      const cartLine = cartLines.get(json.id);
+      switch (json.action) {
+        case "reconcile":
+          if (cartLine) {
+            cartLine.quantity = json.quantity;
+            cartLines.set(json.id, cartLine);
+            setReconcile(
+              `Inventory changed. Your cart has been updated ${cartLine.name} ${json.quantity}`,
+            );
+          }
+          // TODO: didn't have time for this, but should update local product inventory from here
+          break;
+
+        case "added":
+          console.log({ cartLine, json });
+          if (cartLine) {
+            cartLine.quantity = json.quantity;
+            cartLines.set(json.id, cartLine);
+          } else {
+            cartLines.set(json.id, json);
+          }
+          toast.success(`Updated ${json.name}. Count is ${json.quantity}.`);
+          break;
       }
     }
   }, [lastMessage]);

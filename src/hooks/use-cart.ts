@@ -1,6 +1,4 @@
-import { useContext, useState, useEffect } from "react";
-
-import toast from "react-hot-toast";
+import { useContext } from "react";
 
 import { CartContext } from "../cart";
 
@@ -9,14 +7,8 @@ import useDebounce from "./use-debounce";
 const DEBOUNCE_WINDOW = 0.5e3;
 
 const useCart = () => {
-  const {
-    cartLines,
-    clearReconcile,
-    messages,
-    reconcile,
-    sendMessage,
-    setCartLines,
-  } = useContext(CartContext);
+  const { cartLines, clearReconcile, messages, reconcile, sendMessage } =
+    useContext(CartContext);
 
   const updateCart = useDebounce(
     (id: number, name: string, quantity: number) => {
@@ -28,8 +20,6 @@ const useCart = () => {
           quantity,
         }),
       );
-      toast.success(`Updated ${name}. Count is ${quantity}.`);
-      setCartLines(cartLines.set(id, { id, name, quantity }));
     },
     DEBOUNCE_WINDOW,
   );
