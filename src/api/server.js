@@ -37,28 +37,16 @@ const server = serve({
     async message(ws, message) {
       console.log({ message });
       const { id, quantity } = JSON.parse(message);
-      ws.send("received");
+      ws.send("ACK");
 
       // simulate slow responses
       if (id === 2) {
         setTimeout(() => {
-          ws.send(
-            JSON.stringify({
-              action: "reconcile",
-              id,
-              quantity: 2,
-            }),
-          );
+          ws.send(JSON.stringify({ action: "reconcile", id, quantity: 2 }));
         }, 2e3);
       } else {
         setTimeout(() => {
-          ws.send(
-            JSON.stringify({
-              action: "added",
-              id,
-              quantity,
-            }),
-          );
+          ws.send(JSON.stringify({ action: "added", id, quantity }));
         }, 2e3);
       }
     },
