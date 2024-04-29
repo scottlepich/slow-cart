@@ -5,20 +5,28 @@ import toast from "react-hot-toast";
 import { CartContext } from "../cart";
 
 const useCart = () => {
-  const { cartLines, setCartLines, sendMessage } = useContext(CartContext);
+  const { cartLines, setCartLines, sendMessage, messages } =
+    useContext(CartContext);
 
-  const addToCart = (id: number, name: string, quantity: number) => {
-    // TODO: debouce
-
-    sendMessage(`update ${name} to ${quantity}`);
-
+  const updateCart = (id: number, name: string, quantity: number) => {
+    console.log({ id, quantity });
+    sendMessage(
+      JSON.stringify({
+        action: "update cart",
+        id,
+        name,
+        quantity,
+      }),
+    );
     toast.success(`Updated ${name}. Count is ${quantity}.`);
     setCartLines(cartLines.set(id, { name, quantity }));
-    console.log({ id, cartLines });
   };
 
+  const getMessages = () => messages;
+
   return {
-    addToCart,
+    getMessages,
+    updateCart,
   };
 };
 

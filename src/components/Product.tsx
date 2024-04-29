@@ -15,6 +15,9 @@ export interface Props {
   thumbnail_url: string;
 }
 
+import debounce from "../debounce";
+const DEBOUNCE_WINDOW = 0.5e3;
+
 const Product: FC<PropsWithChildren<Props>> = ({
   desc,
   id,
@@ -37,7 +40,9 @@ const Product: FC<PropsWithChildren<Props>> = ({
   const handleAdd = (count: number) => {
     if (count <= available) {
       setCount(count);
-      updateCart(id, name, count);
+      debounce(() => {
+        updateCart(id, name, count);
+      }, DEBOUNCE_WINDOW)();
     } else {
       toast.error(`Only ${available} ${name} available.`);
       setHasDisabledAdd(true);

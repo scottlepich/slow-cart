@@ -1,4 +1,11 @@
-import { createContext, useState, FC, PropsWithChildren } from "react";
+import {
+  createContext,
+  useState,
+  FC,
+  PropsWithChildren,
+  useEffect,
+} from "react";
+
 import useWebSocket, { SendMessage } from "react-use-websocket";
 
 interface CartLine {
@@ -8,6 +15,7 @@ interface CartLine {
 
 interface ICartContext {
   cartLines: Map<number, CartLine>;
+  messages: string[];
   sendMessage: SendMessage;
   setCartLines: (cartLines: ICartContext["cartLines"]) => void;
 }
@@ -27,14 +35,24 @@ export const CartContextProvider: FC<PropsWithChildren<never>> = ({
     new Map(),
   );
 
-  const { sendMessage } = useWebSocket(WS_URL, {
+  const [messages, setMessages] = useState<string[]>([]);
+
+  const { sendMessage, lastMessage } = useWebSocket(WS_URL, {
     onOpen: () => {
       console.log("WebSocket connection established.");
     },
   });
 
+  useEffect(() => {
+    if (lastMessage?.data) {
+      setMessages((prev) => [...prev, lastMessage.data]);
+    }
+  }, [lastMessage]);
+
   return (
-    <CartContext.Provider value={{ cartLines, setCartLines, sendMessage }}>
+    <CartContext.Provider
+      value={{ cartLines, setCartLines, sendMessage, messages }}
+    >
       {children}
     </CartContext.Provider>
   );
