@@ -23,7 +23,9 @@ Prototype of a cart UI that handles slow server-side inventory updates.
 
 ### Install bun
 If you don't have this yet, it's fantastic for prototyping with a lot of built-in scaffloding.
-
+```
+curl https://bun.sh/install | bash
+```
 
 ### bun install
 Get packages
