@@ -4,7 +4,7 @@ import products from "../../fixtures/mock-products.json";
 
 const PORT = 3000;
 
-const socketInitMessage = "Connected, successful";
+const SOCKET_INIT_MESSAGE = "Connected, successful";
 
 const server = serve({
   PORT,
@@ -30,7 +30,7 @@ const server = serve({
 
   websocket: {
     open(ws) {
-      ws.send(socketInitMessage);
+      ws.send(SOCKET_INIT_MESSAGE);
       console.log("opened", { ws });
     },
 
