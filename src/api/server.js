@@ -43,12 +43,12 @@ const server = serve({
       if (id === 2) {
         // simulate reconcile
         setTimeout(() => {
-          ws.send(JSON.stringify({ action: "reconcile", id, quantity: 2 }));
-        }, 2e3);
+          ws.send(JSON.stringify({ action: "reconcile", id, quantity: 1 }));
+        }, 1e3);
       } else {
         setTimeout(() => {
           ws.send(JSON.stringify({ action: "added", name, id, quantity }));
-        }, 2e3);
+        }, 3e3);
       }
     },
 
