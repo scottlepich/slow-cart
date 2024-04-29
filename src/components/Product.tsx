@@ -5,8 +5,6 @@ import Quantity from "./Quantity";
 
 import "./product.css";
 
-import useDebounce from "../hooks/use-debounce";
-
 import useCart from "../hooks/use-cart";
 
 export interface Props {
@@ -16,8 +14,6 @@ export interface Props {
   quantity: number;
   thumbnail_url: string;
 }
-
-const DEBOUNCE_WINDOW = 0.5e3;
 
 const Product: FC<PropsWithChildren<Props>> = ({
   desc,
@@ -33,11 +29,6 @@ const Product: FC<PropsWithChildren<Props>> = ({
   const [hasDisabledAdd, setHasDisabledAdd] = useState<boolean>(false);
 
   const { updateCart, getLastMessage, messages } = useCart();
-
-  const debouncedUpdate = useDebounce(
-    () => updateCart(id, name, count),
-    DEBOUNCE_WINDOW,
-  );
 
   useEffect(() => {
     if (isInit) {
@@ -59,6 +50,7 @@ const Product: FC<PropsWithChildren<Props>> = ({
 
   useEffect(() => {
     const message = getLastMessage();
+    console.log({ messages });
   }, [messages]);
 
   const handleAdd = (count: number) => {
