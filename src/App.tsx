@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 import fetchProducts from "./fetch-products";
 
+import { CartContextProvider } from "./cart";
 import Products from "./components/Products";
 import { Props as Product } from "./components/Product";
 
@@ -16,7 +17,9 @@ const App = () => {
   return (
     <main>
       <Toaster position="bottom-left" reverseOrder />
-      <Products products={products} />
+      <CartContextProvider>
+        <Products products={products} />
+      </CartContextProvider>
     </main>
   );
 };

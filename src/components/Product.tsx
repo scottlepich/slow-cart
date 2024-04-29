@@ -1,29 +1,31 @@
-import { FC, PropsWithChildren, useState } from "react";
+import { FC, PropsWithChildren, useEffect, useState } from "react";
 
 import Quantity from "./Quantity";
 
 import "./product.css";
 
+import useCart from "../hooks/use-cart";
+
 export interface Props {
   desc: string;
+  id: number;
   name: string;
   thumbnail_url: string;
 }
 
-const handleAddClick = (count: number, setCount: (n: number) => void) => {
-  setCount(count + 1);
-};
-
-const handleRemoveClick = (count: number, setCount: (n: number) => void) => {
-  setCount(count - 1);
-};
-
 const Product: FC<PropsWithChildren<Props>> = ({
   desc,
   name,
+  id,
   thumbnail_url,
 }) => {
-  const [countInCart, setCountInCart] = useState<number>(0);
+  const [count, setCount] = useState<number>(0); // local state count
+
+  const { addToCart } = useCart();
+
+  useEffect(() => {
+    addToCart(id, name, count);
+  }, [count]);
 
   return (
     <li>
@@ -32,9 +34,9 @@ const Product: FC<PropsWithChildren<Props>> = ({
         <h3>{name}</h3>
         <p>{desc}</p>
         <Quantity
-          onAddClick={() => handleAddClick(countInCart, setCountInCart)}
-          onRemoveClick={() => handleRemoveClick(countInCart, setCountInCart)}
-          count={countInCart}
+          onAddClick={() => setCount(count + 1)}
+          onRemoveClick={() => setCount(count - 1)}
+          count={count}
         />
       </div>
     </li>
