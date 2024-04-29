@@ -2,6 +2,13 @@
 
 Prototype of a cart UI that handles slow server-side inventory updates.
 
+This isn't production quality, but really just a idea materialized.
+
+It only really works the first time through, because the server only returns the "reconcile"  message once, so refresh if you want to try more than once.
+
+1. Try adding the first product to see the delay in the add to cart message
+1. Try adding several of the second product, it simulates an eventual consistency message and update the users cart.
+
 ## Features ##
 
 - Update cart UI is immediate for user (local state)
@@ -45,10 +52,6 @@ http://localhost:5175/
 API is here:
 http://localhost:3000/
 
-
-### Testing
-1. Try adding the first product to see the delay in the add to cart message
-1. Try adding several of the second product, it simulates an eventual consistency message and update the users cart.
 
 ## Rationale
 
