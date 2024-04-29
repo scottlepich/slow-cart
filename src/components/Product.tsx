@@ -20,11 +20,18 @@ const Product: FC<PropsWithChildren<Props>> = ({
   thumbnail_url,
 }) => {
   const [count, setCount] = useState<number>(0); // local state count
+  const [isInit, setIsInit] = useState<boolean>(true);
 
   const { addToCart } = useCart();
 
   useEffect(() => {
-    addToCart(id, name, count);
+    setIsInit(false);
+  }, []);
+
+  useEffect(() => {
+    if (!isInit) {
+      addToCart(id, name, count);
+    }
   }, [count]);
 
   return (
