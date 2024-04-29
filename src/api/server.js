@@ -40,15 +40,15 @@ const server = serve({
       ws.send(JSON.stringify({ action: "ACK" }));
 
       // simulate slow responses
+      setTimeout(() => {
+        ws.send(JSON.stringify({ action: "added", name, id, quantity }));
+      }, 1e3);
+
       if (id === 2) {
         // simulate reconcile
         setTimeout(() => {
           ws.send(JSON.stringify({ action: "reconcile", id, quantity: 1 }));
         }, 4e3);
-      } else {
-        setTimeout(() => {
-          ws.send(JSON.stringify({ action: "added", name, id, quantity }));
-        }, 1e3);
       }
     },
 
