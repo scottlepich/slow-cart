@@ -32,18 +32,6 @@ const Product: FC<PropsWithChildren<Props>> = ({
 
   const [hasDisabledAdd, setHasDisabledAdd] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (isInit) {
-      setIsInit(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (hasDisabledAdd && count < available) {
-      setHasDisabledAdd(false);
-    }
-  }, [count, available, hasDisabledAdd]);
-
   const { updateCart } = useCart();
 
   const debouncedUpdate = useDebounce(
@@ -52,10 +40,22 @@ const Product: FC<PropsWithChildren<Props>> = ({
   );
 
   useEffect(() => {
+    if (isInit) {
+      setIsInit(false);
+    }
+  }, []);
+
+  useEffect(() => {
     if (!isInit) {
       debouncedUpdate();
     }
   }, [count]);
+
+  useEffect(() => {
+    if (hasDisabledAdd && count < available) {
+      setHasDisabledAdd(false);
+    }
+  }, [count, available, hasDisabledAdd]);
 
   const handleAdd = (count: number) => {
     if (count <= available) {
