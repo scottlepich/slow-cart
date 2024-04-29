@@ -7,8 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
-    "backend": "bun serve ./src/api/server.js",
+    "preview": "vite preview",
+    "backend": "bun ./src/api/server.js"
   },
   "dependencies": {
     "react": "^18.2.0",
