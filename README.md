@@ -1,8 +1,8 @@
-Slow Cart
+# Slow Cart #
 
 Prototype of a cart UI that handles slow server-side inventory updates.
 
-Features
+## Features ##
 
 - Update cart UI is immediate for user (local state)
 - Quantity updates are debouced
@@ -12,10 +12,10 @@ Features
   - update inventory
   - alert user
 
-Requirements
+### Requirements ###
 
-- Get inventory on app init
+- Get inventory when App initializes
 - Cart is kept in a context
-- Use Websocket for atomic cart communication
-- Toast component for messaging
+- Use a Websocket for atomic cart communication
+- Use a toast component for user messaging
 
