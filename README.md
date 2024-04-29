@@ -33,9 +33,14 @@ Install packages
 $ bun install
 ```
 
-### Run bun server and react
-
+Run bun server and react
 ```
 $ bun dev
 $ bun backend
 ```
+
+View locally
+http://localhost:5175/
+
+API is here
+http://localhost:3000/
