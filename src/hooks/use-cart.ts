@@ -11,11 +11,11 @@ const DEBOUNCE_WINDOW = 0.5e3;
 const useCart = () => {
   const {
     cartLines,
-    setCartLines,
-    sendMessage,
+    clearReconcile,
     messages,
     reconcile,
-    clearReconcile,
+    sendMessage,
+    setCartLines,
   } = useContext(CartContext);
 
   const updateCart = useDebounce(
