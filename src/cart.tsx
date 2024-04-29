@@ -66,7 +66,9 @@ export const CartContextProvider: FC<PropsWithChildren<never>> = ({
               `We're sorry, our inventory has recently changed. Your cart has been updated to: ${cartLine.name} ${json.quantity}`,
             );
           }
-          // TODO: didn't have time for this, but should update local product inventory from here
+          // TODO: didn't have time for this,
+          // but this should update local product inventory
+          // at this point...
           break;
 
         case "added":
