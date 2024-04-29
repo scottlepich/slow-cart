@@ -12,7 +12,7 @@ const useCart = () => {
     console.log({ id, quantity });
     sendMessage(
       JSON.stringify({
-        action: "update cart",
+        action: "cart-update",
         id,
         name,
         quantity,
