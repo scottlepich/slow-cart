@@ -30,17 +30,18 @@ const server = serve({
 
   websocket: {
     open(ws) {
-      ws.send(SOCKET_INIT_MESSAGE);
-      console.log("opened", { ws });
+      ws.send(JSON.stringify({ action: SOCKET_INIT_MESSAGE }));
+      // console.log("opened", { ws });
     },
 
     async message(ws, message) {
-      console.log({ message });
+      // console.log({ message });
       const { id, quantity } = JSON.parse(message);
-      ws.send("ACK");
+      ws.send(JSON.stringify({ action: "ACK" }));
 
       // simulate slow responses
       if (id === 2) {
+        // simulate reconcile
         setTimeout(() => {
           ws.send(JSON.stringify({ action: "reconcile", id, quantity: 2 }));
         }, 2e3);
