@@ -45,6 +45,8 @@ http://localhost:5175/
 API is here:
 http://localhost:3000/
 
+
+### Testing
 1. Try adding the first product to see the delay in the add to cart message
 1. Try adding several of the second product, it simulates an eventual consistency message and update the users cart.
 
