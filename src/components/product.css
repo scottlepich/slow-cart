@@ -1,3 +1,20 @@
 li {
   color: white;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1.5em;
+  width: 66%;
+
+  img {
+    height: 100px;
+    width: 100px;
+  }
+
+  > div {
+    margin-left: 1em;
+
+    h3 {
+      margin-top: 0;
+    }
+  }
 }
