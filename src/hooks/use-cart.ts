@@ -9,7 +9,7 @@ import useDebounce from "./use-debounce";
 const DEBOUNCE_WINDOW = 0.5e3;
 
 const useCart = () => {
-  const { cartLines, setCartLines, sendMessage, messages } =
+  const { cartLines, setCartLines, sendMessage, reconcile, messages } =
     useContext(CartContext);
 
   const updateCart = useDebounce(
@@ -28,12 +28,13 @@ const useCart = () => {
     DEBOUNCE_WINDOW,
   );
 
-  const getLastMessage = () => messages.slice(-1);
+  const getCartLine = (id: number) => cartLines.get(id);
 
   return {
     messages,
-    getLastMessage,
     updateCart,
+    getCartLine,
+    reconcile,
   };
 };
 

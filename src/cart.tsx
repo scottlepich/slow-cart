@@ -19,6 +19,7 @@ interface ICartContext {
   setCartLines: (cartLines: ICartContext["cartLines"]) => void;
   messages?: string[];
   reconcile?: CartLine;
+  clearReconcile: () => void;
 }
 
 const WS_URL = "ws://localhost:3000";
@@ -27,6 +28,7 @@ export const CartContext = createContext<ICartContext>({
   cartLines: new Map<number, CartLine>(),
   sendMessage: () => undefined,
   setCartLines: () => undefined,
+  clearReconcile: () => undefined,
 });
 
 export const CartContextProvider: FC<PropsWithChildren<never>> = ({
@@ -56,9 +58,20 @@ export const CartContextProvider: FC<PropsWithChildren<never>> = ({
     }
   }, [lastMessage]);
 
+  const clearReconcile = () => {
+    setReconcile(undefined);
+  };
+
   return (
     <CartContext.Provider
-      value={{ cartLines, setCartLines, sendMessage, messages, reconcile }}
+      value={{
+        cartLines,
+        setCartLines,
+        sendMessage,
+        messages,
+        reconcile,
+        clearReconcile,
+      }}
     >
       {children}
     </CartContext.Provider>

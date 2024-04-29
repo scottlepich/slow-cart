@@ -22,13 +22,13 @@ const Product: FC<PropsWithChildren<Props>> = ({
   quantity: available,
   thumbnail_url,
 }) => {
+  const { updateCart, reconcile, clearReconcile } = useCart();
+
   const [count, setCount] = useState<number>(0); // local state count
 
   const [isInit, setIsInit] = useState<boolean>(true);
 
   const [hasDisabledAdd, setHasDisabledAdd] = useState<boolean>(false);
-
-  const { updateCart, getCartLine } = useCart();
 
   useEffect(() => {
     if (isInit) {
@@ -44,11 +44,16 @@ const Product: FC<PropsWithChildren<Props>> = ({
 
   useEffect(() => {
     // reconcile cartLine
-    if (cartLine && cartLine.quantity !== count) {
-      setCount(cartLine.quantity);
-      toast("updated quantity");
+    if (reconcile?.quantity) {
+      if (reconcile.quantity !== count) {
+        setCount(reconcile.quantity);
+        toast.success(
+          `Inventory changed. Your cart has been updated ${name} ${reconcile.quantity}`,
+        );
+        clearReconcile();
+      }
     }
-  }, [cartLine]);
+  }, [reconcile]);
 
   useEffect(() => {
     if (hasDisabledAdd && count < available) {
