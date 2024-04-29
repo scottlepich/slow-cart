@@ -76,10 +76,10 @@ const Product: FC<PropsWithChildren<Props>> = ({
         <h3>{name}</h3>
         <p>{desc}</p>
         <Quantity
-          onAddClick={() => handleAdd(count + 1)}
-          onRemoveClick={() => setCount(count - 1)}
           count={count}
           hasDisabledAdd={hasDisabledAdd}
+          onAddClick={() => handleAdd(count + 1)}
+          onRemoveClick={() => setCount(count - 1)}
         />
       </div>
     </li>
