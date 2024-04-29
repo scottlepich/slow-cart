@@ -63,7 +63,7 @@ export const CartContextProvider: FC<PropsWithChildren<never>> = ({
             cartLine.quantity = json.quantity;
             cartLines.set(json.id, cartLine);
             setReconcile(
-              `Inventory changed. Your cart has been updated ${cartLine.name} ${json.quantity}`,
+              `We're sorry, our inventory has recently changed. Your cart has been updated to: ${cartLine.name} ${json.quantity}`,
             );
           }
           // TODO: didn't have time for this, but should update local product inventory from here
