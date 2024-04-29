@@ -27,14 +27,13 @@ If you don't have this yet, it's fantastic for prototyping with a lot of built-i
 curl https://bun.sh/install | bash
 ```
 
-### bun install
-Get packages
+### Run local
+Install packages 
 ```
 $ bun install
 ```
 
-### 
-Run bun server and react
+### Run bun server and react
 
 ```
 $ bun dev
