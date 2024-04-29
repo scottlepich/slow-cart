@@ -22,7 +22,7 @@ const Product: FC<PropsWithChildren<Props>> = ({
   quantity: available,
   thumbnail_url,
 }) => {
-  const { updateCart, reconcile, clearReconcile } = useCart();
+  const { updateCart, cartLines, reconcile, clearReconcile } = useCart();
 
   const [count, setCount] = useState<number>(0); // local state count
 
@@ -44,13 +44,11 @@ const Product: FC<PropsWithChildren<Props>> = ({
 
   useEffect(() => {
     // reconcile cartLine
-    if (reconcile?.quantity) {
-      const { quantity, id: reconcileId } = reconcile;
-      if (id === reconcileId && quantity !== count) {
-        setCount(reconcile.quantity);
-        toast.success(
-          `Inventory changed. Your cart has been updated ${name} ${reconcile.quantity}`,
-        );
+    if (reconcile) {
+      const cartLine = cartLines.get(id);
+      if (cartLine && cartLine.quantity !== count) {
+        setCount(cartLine.quantity);
+        toast.success(reconcile);
         clearReconcile();
       }
     }

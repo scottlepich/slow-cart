@@ -37,11 +37,12 @@ const useCart = () => {
   const getCartLine = (id: number) => cartLines.get(id);
 
   return {
-    messages,
-    updateCart,
-    getCartLine,
-    reconcile,
+    cartLines,
     clearReconcile,
+    getCartLine,
+    messages,
+    reconcile,
+    updateCart,
   };
 };
 

@@ -19,7 +19,7 @@ interface ICartContext {
   sendMessage: SendMessage;
   setCartLines: (cartLines: ICartContext["cartLines"]) => void;
   messages?: string[];
-  reconcile?: CartLine;
+  reconcile?: string;
   clearReconcile: () => void;
 }
 
@@ -41,7 +41,7 @@ export const CartContextProvider: FC<PropsWithChildren<never>> = ({
 
   const [messages, setMessages] = useState<string[]>([]);
 
-  const [reconcile, setReconcile] = useState<any>(undefined);
+  const [reconcile, setReconcile] = useState<string | undefined>(undefined);
 
   const { sendMessage, lastMessage } = useWebSocket(WS_URL, {
     onOpen: () => {
@@ -54,7 +54,14 @@ export const CartContextProvider: FC<PropsWithChildren<never>> = ({
       const json = JSON.parse(lastMessage.data);
       setMessages((prev) => [...prev, json]);
       if (json.action === "reconcile") {
-        setReconcile(json);
+        const cartLine = cartLines.get(json.id);
+        if (cartLine) {
+          cartLine.quantity = json.quantity;
+          cartLines.set(json.id, cartLine);
+          setReconcile(
+            `Inventory changed. Your cart has been updated ${cartLine.name} ${json.quantity}`,
+          );
+        }
       }
     }
   }, [lastMessage]);
