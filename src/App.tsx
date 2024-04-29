@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 import fetchProducts from "./fetch-products";
 
@@ -14,6 +15,7 @@ const App = () => {
 
   return (
     <main>
+      <Toaster position="bottom-left" reverseOrder />
       <Products products={products} />
     </main>
   );
