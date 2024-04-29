@@ -45,7 +45,8 @@ const Product: FC<PropsWithChildren<Props>> = ({
   useEffect(() => {
     // reconcile cartLine
     if (reconcile?.quantity) {
-      if (reconcile.quantity !== count) {
+      const { quantity, id: reconcileId } = reconcile;
+      if (id === reconcileId && quantity !== count) {
         setCount(reconcile.quantity);
         toast.success(
           `Inventory changed. Your cart has been updated ${name} ${reconcile.quantity}`,

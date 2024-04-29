@@ -9,6 +9,7 @@ import {
 import useWebSocket, { SendMessage } from "react-use-websocket";
 
 interface CartLine {
+  id: number;
   name: string;
   quantity: number;
 }

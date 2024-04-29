@@ -29,7 +29,7 @@ const useCart = () => {
         }),
       );
       toast.success(`Updated ${name}. Count is ${quantity}.`);
-      setCartLines(cartLines.set(id, { name, quantity }));
+      setCartLines(cartLines.set(id, { id, name, quantity }));
     },
     DEBOUNCE_WINDOW,
   );
