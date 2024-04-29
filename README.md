@@ -8,9 +8,9 @@ Prototype of a cart UI that handles slow server-side inventory updates.
 - Quantity updates are debouced
 - Update cart when asynchronous change happens on server
 - When there is a discrepancy
-  - update cart
-  - update inventory
-  - alert user
+  - Update cart
+  - Update inventory
+  - Alert user
 
 ## Requirements ##
 
