@@ -22,10 +22,11 @@ const useCart = () => {
     setCartLines(cartLines.set(id, { name, quantity }));
   };
 
-  const getMessages = () => messages;
+  const getLastMessage = () => messages.slice(-1);
 
   return {
-    getMessages,
+    messages,
+    getLastMessage,
     updateCart,
   };
 };

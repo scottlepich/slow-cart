@@ -32,7 +32,7 @@ const Product: FC<PropsWithChildren<Props>> = ({
 
   const [hasDisabledAdd, setHasDisabledAdd] = useState<boolean>(false);
 
-  const { updateCart } = useCart();
+  const { updateCart, getLastMessage, messages } = useCart();
 
   const debouncedUpdate = useDebounce(
     () => updateCart(id, name, count),
@@ -56,6 +56,10 @@ const Product: FC<PropsWithChildren<Props>> = ({
       setHasDisabledAdd(false);
     }
   }, [count, available, hasDisabledAdd]);
+
+  useEffect(() => {
+    const message = getLastMessage();
+  }, [messages]);
 
   const handleAdd = (count: number) => {
     if (count <= available) {
