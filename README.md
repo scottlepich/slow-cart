@@ -12,7 +12,7 @@ Prototype of a cart UI that handles slow server-side inventory updates.
   - update inventory
   - alert user
 
-### Requirements ###
+## Requirements ##
 
 - Get inventory when App initializes
 - Cart is kept in a context
