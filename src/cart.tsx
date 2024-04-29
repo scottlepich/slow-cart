@@ -15,9 +15,10 @@ interface CartLine {
 
 interface ICartContext {
   cartLines: Map<number, CartLine>;
-  messages: string[];
   sendMessage: SendMessage;
   setCartLines: (cartLines: ICartContext["cartLines"]) => void;
+  messages?: string[];
+  reconcile?: CartLine;
 }
 
 const WS_URL = "ws://localhost:3000";
@@ -37,6 +38,8 @@ export const CartContextProvider: FC<PropsWithChildren<never>> = ({
 
   const [messages, setMessages] = useState<string[]>([]);
 
+  const [reconcile, setReconcile] = useState<any>(undefined);
+
   const { sendMessage, lastMessage } = useWebSocket(WS_URL, {
     onOpen: () => {
       console.log("WebSocket connection established.");
@@ -47,12 +50,15 @@ export const CartContextProvider: FC<PropsWithChildren<never>> = ({
     if (lastMessage?.data) {
       const json = JSON.parse(lastMessage.data);
       setMessages((prev) => [...prev, json]);
+      if (json.action === "reconcile") {
+        setReconcile(json);
+      }
     }
   }, [lastMessage]);
 
   return (
     <CartContext.Provider
-      value={{ cartLines, setCartLines, sendMessage, messages }}
+      value={{ cartLines, setCartLines, sendMessage, messages, reconcile }}
     >
       {children}
     </CartContext.Provider>
