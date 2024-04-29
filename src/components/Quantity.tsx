@@ -1,11 +1,24 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, MouseEventHandler } from "react";
 
 export interface Props {
-  onClick: (...args: any[]) => void;
+  onAddClick: MouseEventHandler;
+  onRemoveClick: MouseEventHandler;
   count: number;
 }
 
-const Quantity: FC<PropsWithChildren<Props>> = ({ onClick, count }) =>
-  count > 0 ? <p>todo</p> : <button onClick={onClick}>Add</button>;
+const Quantity: FC<PropsWithChildren<Props>> = ({
+  onAddClick,
+  onRemoveClick,
+  count,
+}) =>
+  count > 0 ? (
+    <>
+      <button onClick={onAddClick}>Add</button>
+      <p>{count}</p>
+      <button onClick={onRemoveClick}>Remove</button>
+    </>
+  ) : (
+    <button onClick={onAddClick}>Add</button>
+  );
 
 export default Quantity;

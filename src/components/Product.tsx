@@ -10,8 +10,12 @@ export interface Props {
   thumbnail_url: string;
 }
 
-const handleAddClick = (count: number, add: (n: number) => void) => {
-  add(count + 1);
+const handleAddClick = (count: number, setCount: (n: number) => void) => {
+  setCount(count + 1);
+};
+
+const handleRemoveClick = (count: number, setCount: (n: number) => void) => {
+  setCount(count - 1);
 };
 
 const Product: FC<PropsWithChildren<Props>> = ({
@@ -27,10 +31,9 @@ const Product: FC<PropsWithChildren<Props>> = ({
       <div>
         <h3>{name}</h3>
         <p>{desc}</p>
-        <p>Cart: {countInCart}</p>
-
         <Quantity
-          onClick={() => handleAddClick(countInCart, setCountInCart)}
+          onAddClick={() => handleAddClick(countInCart, setCountInCart)}
+          onRemoveClick={() => handleRemoveClick(countInCart, setCountInCart)}
           count={countInCart}
         />
       </div>
