@@ -5,6 +5,8 @@ import Quantity from "./Quantity";
 
 import "./product.css";
 
+import useDebounce from "../hooks/use-debounce";
+
 import useCart from "../hooks/use-cart";
 
 export interface Props {
@@ -15,7 +17,6 @@ export interface Props {
   thumbnail_url: string;
 }
 
-import debounce from "../debounce";
 const DEBOUNCE_WINDOW = 0.5e3;
 
 const Product: FC<PropsWithChildren<Props>> = ({
@@ -37,12 +38,18 @@ const Product: FC<PropsWithChildren<Props>> = ({
 
   const { updateCart } = useCart();
 
+  const debouncedUpdate = useDebounce(
+    () => updateCart(id, name, count),
+    DEBOUNCE_WINDOW,
+  );
+
+  useEffect(() => {
+    debouncedUpdate();
+  }, [count]);
+
   const handleAdd = (count: number) => {
     if (count <= available) {
       setCount(count);
-      debounce(() => {
-        updateCart(id, name, count);
-      }, DEBOUNCE_WINDOW)();
     } else {
       toast.error(`Only ${available} ${name} available.`);
       setHasDisabledAdd(true);
