@@ -44,7 +44,7 @@ export const CartContextProvider: FC<PropsWithChildren<never>> = ({
   });
 
   useEffect(() => {
-    if (lastMessage?.data?.action) {
+    if (lastMessage?.data) {
       const json = JSON.parse(lastMessage.data);
       setMessages((prev) => [...prev, json]);
     }

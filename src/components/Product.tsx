@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useEffect, useState } from "react";
+import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import Quantity from "./Quantity";
@@ -28,7 +28,7 @@ const Product: FC<PropsWithChildren<Props>> = ({
 
   const [hasDisabledAdd, setHasDisabledAdd] = useState<boolean>(false);
 
-  const { updateCart, getLastMessage, messages } = useCart();
+  const { updateCart, getCartLine } = useCart();
 
   useEffect(() => {
     if (isInit) {
@@ -43,9 +43,12 @@ const Product: FC<PropsWithChildren<Props>> = ({
   }, [count]);
 
   useEffect(() => {
-    const message = getLastMessage();
-    console.log({ messages, message });
-  }, [messages]);
+    // reconcile cartLine
+    if (cartLine && cartLine.quantity !== count) {
+      setCount(cartLine.quantity);
+      toast("updated quantity");
+    }
+  }, [cartLine]);
 
   useEffect(() => {
     if (hasDisabledAdd && count < available) {
